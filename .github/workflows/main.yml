@@ -1,0 +1,29 @@
+name: Build Frontend
+
+on:
+  push:
+    branches:
+      - main
+      - staging 
+      - dev
+    paths:
+      - "frontend/**" # Only trigger for changes in the frontend directory
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
